@@ -1,0 +1,12 @@
+node{
+  stage('SCM Checkout'){
+     git 'https://github.com/devops-easy/my-app'
+  }
+  stage('Compile Package'){
+    def mvnHome = tool name: 'MAVEN_HOME', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"
+  }
+  stage('Emal Notification') {
+     mail bcc: '', body: 'Hi Welcome to Jenkins Dear', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'sample@gmail.com'
+  }
+}

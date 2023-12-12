@@ -1,0 +1,12 @@
+node{
+  stage('SCM Checkout'){
+     git 'https://github.com/devops-easy/my-app'
+  }
+  stage('Compile Package'){
+    def mvnHome = tool name: 'MAVEN_HOME', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"
+  }
+  stage('Slack Notification') {
+    slackSend baseUrl: 'https://hooks.slack.com/services/', channel: '#cicd', color: 'good', message: 'Welcome to Jenkins!!', tokenCredentialId: 'slack-demo', username: 'devopseasy'
+  }
+}
